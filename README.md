@@ -40,6 +40,11 @@ Tested on the widely-benchmarked **CASIA-B Dataset**, the system achieves an **8
 *   **ConvNeXt-Base vs. ConvNeXt-Tiny:** Swapped the baseline 88M parameter model for a 28M parameter model. By combining this lighter backbone with the AdamW optimizer and a 10% spatial overlap strategy, the system achieved a +6.7% accuracy gain on normal walking while drastically reducing inference time for edge-device compatibility.
 *   **Decoupled Infrastructure:** Separating the FastAPI inference server from the Node.js web backend ensures that heavy GPU tensor operations do not block standard web requests.
 
+## 🔮 Future Work
+*   **Multi-Modal Fusion**: Integrating skeleton keypoints alongside GEI silhouettes to further mitigate the impact of heavy clothing.
+
+*   **Real-Time Edge Deployment**: Migrating the pipeline to support live RTSP camera streams.
+
 ## 💻 How to Run Locally
 
 ### 1. Start the Inference Server
