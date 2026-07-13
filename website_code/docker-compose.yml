@@ -1,0 +1,48 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: gait-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  backend:
+    build:
+      context: ./new_gait_backend
+    container_name: gait-backend
+    restart: unless-stopped
+    env_file:
+      - ./new_gait_backend/.env
+    environment:
+      PORT: 5000
+      MONGODB_URI: mongodb://mongo:27017/gait-recognition
+      CORS_ORIGIN: http://localhost:5173,http://127.0.0.1:5173
+    depends_on:
+      mongo:
+        condition: service_healthy
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build:
+      context: ./newwwwwwwwww_3omda/gait-sentinel-main
+    container_name: gait-frontend
+    restart: unless-stopped
+    environment:
+      VITE_API_BASE_URL: http://localhost:5000/api
+      VITE_SERVER_BASE_URL: http://localhost:5000
+    depends_on:
+      - backend
+    ports:
+      - "5173:5173"
+
+volumes:
+  mongo_data:
