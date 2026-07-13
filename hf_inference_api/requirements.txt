@@ -1,0 +1,13 @@
+# Deep Learning Core
+torch
+torchvision
+
+# Data & Image Processing
+numpy
+Pillow
+opencv-python-headless
+
+# Web Server (Choose FastAPI or Flask based on what you used)
+fastapi
+uvicorn
+pydantic
